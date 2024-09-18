@@ -1,0 +1,27 @@
+name: CD chambeaya-cdn
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches: [ "main" ]
+    paths:
+      - '**'
+
+jobs:
+
+  deploy:
+    name: Deploy chambeaya-cdn
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Execute remote command
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.REMOTE_SRV_IP }}
+          username: ${{ secrets.REMOTE_SRV_USER }}
+          key: ${{ secrets.REMOTE_SRV_PRIV_KEY }}
+          port: 22
+          script: |
+            cd /home/ubuntu/micro-servicios/translated/file-server/json/dummy
+            ./update.sh

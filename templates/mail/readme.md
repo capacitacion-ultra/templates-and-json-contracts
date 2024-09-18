@@ -1,0 +1,2 @@
+Templates for mail sender
+..
